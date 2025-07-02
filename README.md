@@ -6,3 +6,6 @@ The aim is to be simple and easy to work with.
 - [ ] Zettelkasten system.
 - [ ] Text Editor.
 - [ ] GUI.
+
+## Dependencies
+- JUnit Jupiter 5.9.2
