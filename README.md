@@ -1,5 +1,5 @@
 # Mnemosyne
-A Person Knowledge Management system and Note takin app.  
+A Person Knowledge Management system and Note taking app.  
 The aim is to be simple and easy to work with. 
 
 ## TODOs:
