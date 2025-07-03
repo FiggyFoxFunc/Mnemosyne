@@ -15,33 +15,34 @@ public class MainMenu extends JPanel {
     JButton openButton;
 
     public MainMenu() {
-        setLayout(new GridLayout(2,1));
-        prepareNewButton();
-        prepareOpenButton();
-    }
+        setBackground(Color.DARK_GRAY);
 
-    private void prepareNewButton() {
-        newButton = new JButton("New");
-        newButton.setFocusable(false);
+        setLayout(new GridLayout(2, 1, 2, 2));
 
-        newButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = JOptionPane.showInputDialog("Name Your Zettelkasten.");
-                BaseFrame frame = (BaseFrame) SwingUtilities.getRoot(MainMenu.this);
+        newButton = Utilities.createButton(
+                "New",
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String name = JOptionPane.showInputDialog("Name Your Zettelkasten.");
+                        BaseFrame frame = (BaseFrame) SwingUtilities.getRoot(MainMenu.this);
 
-                frame.setZettelkasten(new Zettelkasten(name));
-            }
-        });
+                        if (name != null) {
+                            frame.setZettelkasten(new Zettelkasten(name));
+                        }
+                    }
+                 }
+        );
+
+        openButton = Utilities.createButton(
+                "Open",
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {}
+                }
+        );
 
         add(newButton);
-    }
-
-    private void prepareOpenButton() {
-        openButton = new JButton("Open");
-        openButton.setFocusable(false);
-        // TODO: Add Action Listener.
-
         add(openButton);
     }
 }

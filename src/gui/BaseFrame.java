@@ -15,19 +15,21 @@ public class BaseFrame extends JFrame {
         setTitle("Mnemosyne");
         setMinimumSize(new Dimension(800, 600));
 
+        getContentPane().setBackground(Color.DARK_GRAY);
+
         // Layout setup.
-        prepareLayout(2, 2);
+        prepareLayout();
         prepareMainMenu();
 
         pack();
         setVisible(true);
     }
 
-    private void prepareLayout(Integer width, Integer height) {
+    private void prepareLayout() {
         setLayout(new GridBagLayout());
         gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridwidth = width;
-        gridBagConstraints.gridheight = height;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
     }
 
     private void prepareMainMenu() {
