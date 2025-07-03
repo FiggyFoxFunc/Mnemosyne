@@ -13,7 +13,7 @@ public class MainMenu extends JPanel {
     JButton openButton;
 
     public MainMenu() {
-        setBackground(Color.DARK_GRAY);
+        setBackground(Utilities.defaultBackground);
 
         setLayout(new GridLayout(2, 1, 2, 2));
 

@@ -15,7 +15,7 @@ public class BaseFrame extends JFrame {
         setTitle("Mnemosyne");
         setMinimumSize(new Dimension(800, 600));
 
-        getContentPane().setBackground(Color.DARK_GRAY);
+        getContentPane().setBackground(Utilities.defaultBackground);
 
         // Layout setup.
         prepareLayout();
