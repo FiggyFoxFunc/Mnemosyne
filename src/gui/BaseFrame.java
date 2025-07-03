@@ -6,44 +6,45 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BaseFrame extends JFrame {
-    Zettelkasten zettelkasten;
-    GridBagConstraints gridBagConstraints;
+    String title;
     MainMenu mainMenu;
+    JMenuBar menuBar;
 
-    public BaseFrame() {
+    public BaseFrame(String title) {
+        this.title = title;
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Mnemosyne");
+        setTitle(title);
         setMinimumSize(new Dimension(800, 600));
 
         getContentPane().setBackground(Utilities.defaultBackground);
 
         // Layout setup.
-        prepareLayout();
-        prepareMainMenu();
+        prepareMenuBar();
+        mainMenu = new MainMenu();
+        add(mainMenu);
 
         pack();
         setVisible(true);
     }
 
-    private void prepareLayout() {
-        setLayout(new GridBagLayout());
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
+    private void prepareMenuBar() {
+        menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem newMenuItem = new JMenuItem("New");
+        JMenuItem openMenuItem = new JMenuItem("Open");
+
+        fileMenu.add(newMenuItem);
+        fileMenu.add(openMenuItem);
+        menuBar.add(fileMenu);
+        setJMenuBar(menuBar);
+        menuBar.setVisible(false);
     }
 
-    private void prepareMainMenu() {
-        mainMenu = new MainMenu();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        add(mainMenu, gridBagConstraints);
-    }
-
-    public Zettelkasten getZettelkasten() {
-        return zettelkasten;
-    }
-
-    public void setZettelkasten(Zettelkasten zettelkasten) {
-        this.zettelkasten = zettelkasten;
+    public void createEditor(Zettelkasten zettelkasten) {
+        remove(mainMenu);
+        menuBar.setVisible(true);
+        add(new Editor(zettelkasten));
+        setTitle(title + " - Using Zettelkasten: " + zettelkasten.getName());
     }
 }
