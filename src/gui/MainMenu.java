@@ -21,25 +21,19 @@ public class MainMenu extends JPanel {
 
         newButton = Utilities.createButton(
                 "New",
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String name = JOptionPane.showInputDialog("Name Your Zettelkasten.");
-                        BaseFrame frame = (BaseFrame) SwingUtilities.getRoot(MainMenu.this);
+                e -> {
+                    String name = JOptionPane.showInputDialog("Name Your Zettelkasten.");
+                    BaseFrame frame = (BaseFrame) SwingUtilities.getRoot(MainMenu.this);
 
-                        if (name != null) {
-                            frame.setZettelkasten(new Zettelkasten(name));
-                        }
+                    if (name != null) {
+                        frame.setZettelkasten(new Zettelkasten(name));
                     }
-                 }
+                }
         );
 
         openButton = Utilities.createButton(
                 "Open",
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {}
-                }
+                e -> {}
         );
 
         add(newButton);
