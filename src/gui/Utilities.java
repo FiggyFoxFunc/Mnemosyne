@@ -7,7 +7,14 @@ import java.awt.event.ActionListener;
 
 public class Utilities {
     public static Color defaultBackground = Color.DARK_GRAY;
-    public static Font defaultFont = new Font("Fira Mono", Font.BOLD, 12);
+
+    public static JLabel createLabel(String title) {
+        JLabel label = new JLabel(title);
+
+        label.setForeground(Color.WHITE);
+
+        return label;
+    }
 
     public static JButton createButton(String title, ActionListener actionListener) {
         JButton button = new JButton(title);
@@ -18,7 +25,6 @@ public class Utilities {
         button.setBorder(new LineBorder(Color.BLACK, 2));
         button.setBackground(Color.WHITE);
         button.setForeground(Color.BLACK);
-        button.setFont(defaultFont);
 
         return button;
     }

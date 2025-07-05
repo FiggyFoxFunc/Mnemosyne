@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class BaseFrame extends JFrame {
     String title;
-    MainMenu mainMenu;
-    JMenuBar menuBar;
+    MainMenu mainMenu = new MainMenu();
+    JMenuBar menuBar = new JMenuBar();
 
     public BaseFrame(String title) {
         this.title = title;
@@ -21,7 +21,6 @@ public class BaseFrame extends JFrame {
 
         // Layout setup.
         prepareMenuBar();
-        mainMenu = new MainMenu();
         add(mainMenu);
 
         pack();
@@ -29,7 +28,6 @@ public class BaseFrame extends JFrame {
     }
 
     private void prepareMenuBar() {
-        menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenuItem newMenuItem = new JMenuItem("New");
         JMenuItem openMenuItem = new JMenuItem("Open");

@@ -4,7 +4,7 @@ The aim is to be simple and easy to work with.
 
 ## TODOs:
 - [ ] Zettelkasten system.
-  - [ ] Structure Representation.
+  - [ ] Structure representation.
   - [ ] Linking.
 - [ ] GUI.
   - [x] Base Frame.
@@ -16,6 +16,9 @@ The aim is to be simple and easy to work with.
     - [ ] Edit Card contents.
     - [ ] Edit Card meta-data.
     - [ ] Add hyperlinking within Card.
+- [ ] Testing.
+  - [ ] Add testing for Zettelkasten.
+  - [ ] Add testing for GUI.
 
 ## Dependencies
 - JUnit Jupiter 5.9.2

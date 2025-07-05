@@ -9,8 +9,8 @@ import java.awt.*;
  * MainMenu represents the initial Menu shown upon running Mnemosyne.
  */
 public class MainMenu extends JPanel {
-    GridBagConstraints gridBagConstraints;
-    JPanel buttonPanel;
+    GridBagConstraints gridBagConstraints = new GridBagConstraints();
+    JPanel buttonPanel = new JPanel();
 
     public MainMenu() {
         setBackground(Utilities.defaultBackground);
@@ -32,7 +32,6 @@ public class MainMenu extends JPanel {
     }
 
     private void prepareButtons() {
-        buttonPanel = new JPanel();
         buttonPanel.setBackground(Utilities.defaultBackground);
 
         buttonPanel.setLayout(new GridLayout(2, 1, 2, 2));
