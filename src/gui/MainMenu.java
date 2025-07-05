@@ -4,6 +4,7 @@ import zettelkasten.Zettelkasten;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * MainMenu represents the initial Menu shown upon running Mnemosyne.
@@ -43,7 +44,11 @@ public class MainMenu extends JPanel {
                     BaseFrame frame = (BaseFrame) SwingUtilities.getRoot(MainMenu.this);
 
                     if (!name.isBlank()) {
-                        frame.createEditor(new Zettelkasten(name));
+                        try {
+                            frame.createEditor(new Zettelkasten(name, null));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
         );
