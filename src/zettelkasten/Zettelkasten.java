@@ -10,20 +10,22 @@ import java.util.HashMap;
  */
 public class Zettelkasten {
     private String name;
-    private String directoryPath = "./zettelkastens/";
+    private String parentDirectoryPath = "./zettelkastens/";
+    private String directoryPath;
     private final HashMap<String, Card> cards = new HashMap<>();
 
     /**
      * Default Constructor for Zettelkasten.
      */
-    public Zettelkasten(String name, String directoryPath) throws IOException {
+    public Zettelkasten(String name, String parentDirectoryPath) throws IOException {
         this.name = name;
 
-        if (directoryPath != null) {
-            this.directoryPath = directoryPath;
+        if (parentDirectoryPath != null) {
+            this.parentDirectoryPath = parentDirectoryPath;
         }
 
-        File directoryFile = new File(this.directoryPath + this.name + "/");
+        directoryPath = this.parentDirectoryPath + this.name + "/";
+        File directoryFile = new File(directoryPath);
         if (!directoryFile.isDirectory()) {
             if (!directoryFile.mkdirs()) {
                 throw new IOException("Unable to create Zettelkasten");
@@ -39,16 +41,28 @@ public class Zettelkasten {
         this.name = name;
     }
 
+    public String getParentDirectoryPath() {
+        return parentDirectoryPath;
+    }
+
+    public void setParentDirectoryPath(String parentDirectoryPath) {
+        this.parentDirectoryPath = parentDirectoryPath;
+    }
+
     public String getDirectoryPath() {
         return directoryPath;
     }
 
-    public void setDirectoryPath(String directoryPath) {
-        this.directoryPath = directoryPath;
+    public void setDirectoryPath(String parentDirectoryPath) {
+        this.directoryPath = parentDirectoryPath;
     }
 
-    public void addCard(String name) {
+    public void createCard(String name) {
         cards.put(name, new Card(name, directoryPath));
+    }
+
+    public void addCard(Card card) {
+        cards.put(card.getName(), card);
     }
 
     public Card getCard(String name) {

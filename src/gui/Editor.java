@@ -1,5 +1,6 @@
 package gui;
 
+import zettelkasten.Card;
 import zettelkasten.Zettelkasten;
 
 import javax.swing.*;
@@ -59,14 +60,14 @@ public class Editor extends JPanel {
         tabbedPane.setFocusable(false);
 
         JButton newButton = Utilities.createButton(
-                "+",
+                "New",
                 ignored -> {
                     addCardEditorTab("New Card");
                 }
         );
 
         JButton closeButton = Utilities.createButton(
-                "Close Selected Tab",
+                "Close",
                 ignored -> {
                     int index = tabbedPane.getSelectedIndex();
                     if (index == -1) {
@@ -77,14 +78,35 @@ public class Editor extends JPanel {
                 }
         );
 
+        JButton saveButton = Utilities.createButton(
+                "Save",
+                ignored -> {
+                    int index = tabbedPane.getSelectedIndex();
+                    if (index == -1) {
+                        return;
+                    }
+
+                    String title = tabbedPane.getTitleAt(index);
+                    Card card = null;
+
+                    // TODO: Determine if the card is new or an existing card.
+
+                    JPanel panel = (JPanel)tabbedPane.getComponentAt(index);
+                    JTextArea textArea = (JTextArea)panel.getComponent(0);
+                    card.saveContents(textArea.getText());
+                }
+        );
+
 
         controlPanel.add(newButton);
         controlPanel.add(closeButton);
+        controlPanel.add(saveButton);
         cardEditorPanel.add(controlPanel, BorderLayout.NORTH);
         cardEditorPanel.add(tabbedPane, BorderLayout.CENTER);
     }
 
     private void addCardEditorTab(String title) {
+        zettelkasten.createCard(title);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 1));
 

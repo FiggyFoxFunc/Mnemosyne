@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * Card represents a file within the Zettelkasten.
  */
-public class Card {
+public class Card implements Cloneable {
     private String name;
     private String directoryPath;
 
@@ -33,7 +33,7 @@ public class Card {
     public String getContents() {
         String contents;
 
-        try (FileReader fileReader = new FileReader(directoryPath + name)){
+        try (FileReader fileReader = new FileReader(directoryPath + name + ".txt")){
             contents = String.valueOf(fileReader.read());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -43,10 +43,19 @@ public class Card {
     }
 
     public void saveContents(String contents) {
-        try (FileWriter fileWriter = new FileWriter(directoryPath + name)){
+        try (FileWriter fileWriter = new FileWriter(directoryPath + name + ".txt")){
             fileWriter.write(contents);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Card clone() {
+        try {
+            return (Card) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
         }
     }
 }
