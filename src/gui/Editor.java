@@ -87,9 +87,7 @@ public class Editor extends JPanel {
                     }
 
                     String title = tabbedPane.getTitleAt(index);
-                    Card card = null;
-
-                    // TODO: Determine if the card is new or an existing card.
+                    Card card = zettelkasten.getCard(title);
 
                     JPanel panel = (JPanel)tabbedPane.getComponentAt(index);
                     JTextArea textArea = (JTextArea)panel.getComponent(0);
