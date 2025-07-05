@@ -1,6 +1,8 @@
 package gui;
 
-import zettelkasten.Card;
+import controller.CloseCardEditorTabListener;
+import controller.NewCardEditorTabListener;
+import controller.SaveCardEditorTabListener;
 import zettelkasten.Zettelkasten;
 
 import javax.swing.*;
@@ -61,38 +63,17 @@ public class Editor extends JPanel {
 
         JButton newButton = Utilities.createButton(
                 "New",
-                ignored -> {
-                    addCardEditorTab("New Card");
-                }
+                new NewCardEditorTabListener(this)
         );
 
         JButton closeButton = Utilities.createButton(
                 "Close",
-                ignored -> {
-                    int index = tabbedPane.getSelectedIndex();
-                    if (index == -1) {
-                        return;
-                    }
-
-                    tabbedPane.removeTabAt(index);
-                }
+                new CloseCardEditorTabListener(tabbedPane)
         );
 
         JButton saveButton = Utilities.createButton(
                 "Save",
-                ignored -> {
-                    int index = tabbedPane.getSelectedIndex();
-                    if (index == -1) {
-                        return;
-                    }
-
-                    String title = tabbedPane.getTitleAt(index);
-                    Card card = zettelkasten.getCard(title);
-
-                    JPanel panel = (JPanel)tabbedPane.getComponentAt(index);
-                    JTextArea textArea = (JTextArea)panel.getComponent(0);
-                    card.saveContents(textArea.getText());
-                }
+                new SaveCardEditorTabListener(tabbedPane, zettelkasten)
         );
 
 
@@ -103,7 +84,7 @@ public class Editor extends JPanel {
         cardEditorPanel.add(tabbedPane, BorderLayout.CENTER);
     }
 
-    private void addCardEditorTab(String title) {
+    public void addCardEditorTab(String title) {
         zettelkasten.createCard(title);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 1));

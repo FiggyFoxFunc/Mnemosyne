@@ -1,10 +1,9 @@
 package gui;
 
-import zettelkasten.Zettelkasten;
+import controller.NewZettelkastenListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 /**
  * MainMenu represents the initial Menu shown upon running Mnemosyne.
@@ -39,18 +38,7 @@ public class MainMenu extends JPanel {
 
         JButton newButton = Utilities.createButton(
                 "New",
-                ignored -> {
-                    String name = JOptionPane.showInputDialog("Name Your Zettelkasten.");
-                    BaseFrame frame = (BaseFrame) SwingUtilities.getRoot(MainMenu.this);
-
-                    if (!name.isBlank()) {
-                        try {
-                            frame.createEditor(new Zettelkasten(name, null));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
+                new NewZettelkastenListener()
         );
 
         JButton openButton = Utilities.createButton(
