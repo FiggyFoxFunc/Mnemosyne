@@ -3,18 +3,18 @@ package gui;
 import zettelkasten.Zettelkasten;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
  * Editor is main point for working with and modifying the Zettelkasten.
  */
 public class Editor extends JPanel {
-    Zettelkasten zettelkasten;
-    JSplitPane splitPane;
-    JPanel scrollPanel = new JPanel();
+    private Zettelkasten zettelkasten;
+    private JSplitPane splitPane;
+    private JPanel scrollPanel = new JPanel();
+    private JPanel cardEditorPanel = new JPanel();
     // TODO: Make custom TabbedPane to have close buttons and a new Card button.
-    JTabbedPane tabbedPane = new JTabbedPane();
+    private JTabbedPane tabbedPane = new JTabbedPane();
 
     public Editor(Zettelkasten zettelkasten) {
         this.zettelkasten = zettelkasten;
@@ -23,7 +23,7 @@ public class Editor extends JPanel {
 
         prepareSplitPane();
         prepareScrollPanel();
-        prepareTabbedPane();
+        prepareCardEditorPanel();
 
         add(splitPane);
     }
@@ -32,8 +32,8 @@ public class Editor extends JPanel {
         splitPane = new JSplitPane(
                 JSplitPane.HORIZONTAL_SPLIT,
                 scrollPanel,
-                tabbedPane
-                );
+                cardEditorPanel
+        );
 
         splitPane.setBackground(Utilities.defaultBackground);
         splitPane.setOneTouchExpandable(true);
@@ -46,12 +46,42 @@ public class Editor extends JPanel {
         scrollPanel.add(Utilities.createLabel("- " + zettelkasten.getName()));
     }
 
-    private void prepareTabbedPane() {
-        tabbedPane.setBorder(new LineBorder(Color.BLACK));
+    private void prepareCardEditorPanel() {
+        cardEditorPanel.setBackground(Utilities.defaultBackground);
+        cardEditorPanel.setLayout(new BorderLayout());
+
+        JPanel controlPanel = new JPanel();
+        controlPanel.setBackground(Utilities.defaultBackground);
+        controlPanel.setLayout(new FlowLayout());
+
+        // TODO: Change default tab background colour.
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         tabbedPane.setFocusable(false);
 
-        addCardEditorTab("New Card");
+        JButton newButton = Utilities.createButton(
+                "+",
+                ignored -> {
+                    addCardEditorTab("New Card");
+                }
+        );
+
+        JButton closeButton = Utilities.createButton(
+                "Close Selected Tab",
+                ignored -> {
+                    int index = tabbedPane.getSelectedIndex();
+                    if (index == -1) {
+                        return;
+                    }
+
+                    tabbedPane.removeTabAt(index);
+                }
+        );
+
+
+        controlPanel.add(newButton);
+        controlPanel.add(closeButton);
+        cardEditorPanel.add(controlPanel, BorderLayout.NORTH);
+        cardEditorPanel.add(tabbedPane, BorderLayout.CENTER);
     }
 
     private void addCardEditorTab(String title) {
