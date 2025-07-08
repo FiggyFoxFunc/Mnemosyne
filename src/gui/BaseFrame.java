@@ -1,5 +1,6 @@
 package gui;
 
+import controller.NewZettelkastenListener;
 import zettelkasten.Zettelkasten;
 
 import javax.swing.*;
@@ -32,6 +33,7 @@ public class BaseFrame extends JFrame {
         JMenuItem newMenuItem = new JMenuItem("New");
         JMenuItem openMenuItem = new JMenuItem("Open");
 
+        //newMenuItem.addActionListener(new NewZettelkastenListener());
         fileMenu.add(newMenuItem);
         fileMenu.add(openMenuItem);
         menuBar.add(fileMenu);
@@ -39,6 +41,7 @@ public class BaseFrame extends JFrame {
         menuBar.setVisible(false);
     }
 
+    // TODO: Make the method general.
     public void createEditor(Zettelkasten zettelkasten) {
         remove(mainMenu);
         menuBar.setVisible(true);
